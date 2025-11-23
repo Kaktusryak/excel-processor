@@ -1,0 +1,73 @@
+{
+  "name": "excel-processor",
+  "version": "0.0.0",
+  "main": "electron/main.js",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "electron": "npm run build && electron ./electron/main.js",
+    "electron:dev": "concurrently -k -r \"ng build --watch\" \"wait-on dist/excel-processor/browser/index.html && electron ./electron/main.js\"",
+    "dist": "npm run build && electron-builder"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true,
+    "overrides": [
+      {
+        "files": "*.html",
+        "options": {
+          "parser": "angular"
+        }
+      }
+    ]
+  },
+  "build": {
+    "appId": "com.example.myapp",
+    "directories": {
+      "buildResources": "assets",
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*"
+    ],
+    "win": {
+      "target": "nsis"
+    }
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/common": "^20.2.0",
+    "@angular/compiler": "^20.2.0",
+    "@angular/core": "^20.2.0",
+    "@angular/forms": "^20.2.0",
+    "@angular/platform-browser": "^20.2.0",
+    "@angular/router": "^20.2.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "xlsx": "^0.18.5",
+    "zone.js": "~0.15.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^20.2.0",
+    "@angular/cli": "^20.2.0",
+    "@angular/compiler-cli": "^20.2.0",
+    "@types/jasmine": "~5.1.0",
+    "@types/node": "^24.9.1",
+    "concurrently": "^9.2.1",
+    "electron": "^38.4.0",
+    "electron-builder": "^26.0.12",
+    "electron-reloader": "^1.2.3",
+    "jasmine-core": "~5.9.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "typescript": "~5.9.2",
+    "wait-on": "^9.0.3"
+  }
+}
