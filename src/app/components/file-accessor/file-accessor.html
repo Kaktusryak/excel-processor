@@ -1,10 +1,3 @@
-<div
-  class="dropzone"
-  (dragover)="onDragOver($event)"
-  (drop)="onDrop($event)"
->
-  Drag Excel file here
-</div>
 
 <button (click)="selectFile()">Select Excel File</button>
-<pre>{{ excelData | json }}</pre>
+<pre>{{ excelData.value| json }}</pre>

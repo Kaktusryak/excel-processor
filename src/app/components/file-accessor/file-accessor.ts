@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { JsonPipe } from '@angular/common';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-file-accessor',
@@ -9,33 +10,26 @@ import { JsonPipe } from '@angular/common';
 })
 export class FileAccessor {
 
+  private cdr = inject(ChangeDetectorRef)
 
- excelData: any;
+
+ excelData: BehaviorSubject<any | null> = new BehaviorSubject(null);
 
   constructor() {
     // Listen for data from main process
     (window as any).electronAPI.onExcelData((data: any) => {
-      this.excelData = data;
+      // this.excelData = data;
+      this.excelData.next(data)
+      this.cdr.detectChanges()
+
     });
-  }
-
-  // --- Drag & drop ---
-  onDragOver(event: DragEvent) {
-    event.preventDefault();
-  }
-
-  onDrop(event: DragEvent) {
-    event.preventDefault();
-    const files = event.dataTransfer?.files;
-    if (!files || files.length === 0) return;
-
-    // Cannot use file.path here for security reasons
-    alert('Drag-and-drop does not provide file path in Electron! Use Select File button.');
   }
 
   // --- File dialog ---
   async selectFile() {
     const filePath = await (window as any).electronAPI.openFile();
+    console.log('asdhjlakda');
+    
     if (filePath) {
       (window as any).electronAPI.openExcel(filePath);
     }
