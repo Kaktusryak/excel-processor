@@ -83,4 +83,13 @@ function findColumns(sheet) {
     return { barcodeCol, cartonsCol };
 }
 
+
+// flow:
+// select config file
+// process config file (get lore)
+// select main file
+
+// process main file
+// save amin file
+
 module.exports = { excelParser };
